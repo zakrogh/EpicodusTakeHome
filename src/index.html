@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Recipe Puppy Lookup</title>
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="jumbotron">
+        <h3>Recipe Puppy Lookup</h3>
+      </div>
+      <form class="mainform" action="index.html" method="post">
+        <label for="ingredients">Ingredients (1 per line):</label>
+        <input type="textarea" class="form-control" id="ingredients" value="">
+        <label for="searchterm">Search Term (ex: Pizza):</label>
+        <input type="text" class="form-control" id="searchterm" value="">
+        <br>
+        <button type="submit" class="btn btn-primary" id="formsubmit">Search!</button>
+      </form>
+      <div class="output card">
+      </div>
+    </div>
+  </body>
+</html>
