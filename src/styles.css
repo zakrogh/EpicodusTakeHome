@@ -1,0 +1,9 @@
+#ingredients, #searchterm{
+  max-width: 500px;
+}
+#pageNext, #pagePrev{
+  left: 1000px;
+}
+#divider{
+  width:10px;
+}
