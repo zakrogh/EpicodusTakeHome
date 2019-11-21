@@ -8,7 +8,6 @@ const callApi = async function(queryInput, ingredientsInput, pageInput){
   let query = queryInput;
   let ingredients = ingredientsInput;
   let page = pageInput;
-  console.log(ingredients);
   let promise = new Promise(function(resolve, reject) {
     let request = new XMLHttpRequest();
     let url = `https://cors-anywhere.herokuapp.com/http://www.recipepuppy.com/api/?q=${query}&i=${ingredients}&p=${page}`;
@@ -37,33 +36,17 @@ const parseIngredients = function(ingredients){
 }
 
 //Frontend
-// const displayData = function(data){
-//   $(".output").text("");
-//   console.log(data);
-//   if(data.results.length === 0)
-//     $(".output").text("No results found.");
-//   for(let i = 0; i < data.results.length; i++){
-//     $(".output").append(data.results[i].title + "<br>");
-//     if(data.results[i].thumbnail != "")
-//       $(".output").append("<img src='" + data.results[i].thumbnail + "'/><br>");
-//     $(".output").append("Ingredients: " + data.results[i].ingredients + "<br>");
-//     $(".output").append("Link " + data.results[i].href + "<br>");
-//     $(".output").append("<br><hr>");
-//   }
-// }
-var displayData = function(data){
-  // $(".output").show();
+
+//this giant mess of a function wraps each recipe in a column
+//  and then ensures each column is wrapped in a row, with
+//  exactly 1 to 3 columns per row.
+const displayData = function(data){
+
   $(".output").text("");
   for(let i = 0; i < data.results.length; i++){
-    var placeHolder = "";
-    var oldWrapper;
-    var wrapper;
-    // var listItems = '<ul><li>Cheese</li><li>Sauce</li>';
-    // for(let j = 0; j < myOrder.pizzas[i].toppings.length; j++){
-    //   listItems += '<li>' + myOrder.pizzas[i].toppings[j] + '</li>';
-    // }
-    // listItems += '</ul>';
-
+    let placeHolder = "";
+    let oldWrapper;
+    let wrapper;
     placeHolder += '<div class="col-md-4 column' + i + '">';
     placeHolder += '<div class="card card-info recipe' + i + '" id="recipe' + i + '">';
     placeHolder += '<div class="card-header heading' + i + '">' + '<a target="_blank" href="'+ data.results[i].href + '">'+ data.results[i].title + '</a></div>';
@@ -100,6 +83,7 @@ $(document).ready(function(){
   $(".mainform").submit(async function(event){
     event.preventDefault();
     page = 1;
+    $("#pageNum").text("Page: " + page);
     $(".btn").prop('disabled', false);
     query = $("#searchterm").val();
     ingredients = $("#ingredients").val();
@@ -111,9 +95,10 @@ $(document).ready(function(){
       displayError(data);
   });
   $("#pagePrev").click(async function(){
-    console.log(data);
+
     if(page > 1){
-        page--;
+      page--;
+      $("#pageNum").text("Page: " + page);
       data = await callApi(query,ingredients,page);
       if(data)
         displayData(data);
@@ -122,8 +107,9 @@ $(document).ready(function(){
       }
   });
   $("#pageNext").click(async function(){
-    console.log(data);
+
     page++;
+    $("#pageNum").text("Page: " + page);
     data = await callApi(query,ingredients,page);
     if(data)
       displayData(data);
