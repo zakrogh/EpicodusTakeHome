@@ -66,8 +66,8 @@ var displayData = function(data){
 
     placeHolder += '<div class="col-md-4 column' + i + '">';
     placeHolder += '<div class="card card-info recipe' + i + '" id="recipe' + i + '">';
-    placeHolder += '<div class="card-header heading' + i + '">' + data.results[i].title + '</div>';
-    placeHolder += '<div class="card-body body' + i + '">' + "<img src='" + data.results[i].thumbnail + "'/><br>" + '</div>';
+    placeHolder += '<div class="card-header heading' + i + '">' + '<a target="_blank" href="'+ data.results[i].href + '">'+ data.results[i].title + '</a></div>';
+    placeHolder += '<div class="card-body body' + i + '">' + "<img src='" + data.results[i].thumbnail + "'/><br><hr>" + "Ingredients: " + data.results[i].ingredients + '</div>';
     placeHolder += '</div></div>';
     $(".output").append(placeHolder);
     if((i % 3) === 0 && i > 0){
